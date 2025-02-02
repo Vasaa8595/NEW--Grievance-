@@ -1,0 +1,78 @@
+<mat-toolbar>
+  <div class="top">
+    <img width="65px" src="Bannari_Amman_Institute_of_Technology_logo.png" alt="BIT Logo">
+    <button mat-button (click)="opened = !opened"><mat-icon>menu</mat-icon></button>
+    <h2>BIT Grievance Portal</h2>
+  </div>
+  <div class="img">
+    <div class="dropdown" (click)="toggleDropdown()">
+      <img [src]="profileimg" alt="userpic"> {{ Name }}
+      <span class="left-icon"></span>
+      <span class="right-icon"></span>
+      <div class="items">
+        <a href="#" style="--i:2;"><span (click)="signOut()">Logout</span></a>
+      </div>
+    </div>
+  </div>
+</mat-toolbar>
+
+<!-- Sidenav Section -->
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="opened" mode="side">
+    <img [src]="profileimg" alt="userpic">
+    <mat-list>
+      <mat-list-item><a mat-button (click)="showComponent('dashboard')">Dashboard</a></mat-list-item>
+      <mat-list-item><a mat-button (click)="showComponent('personal')">Personal</a></mat-list-item>
+      <mat-list-item><a mat-button (click)="showComponent('anonymous')">Anonymous</a></mat-list-item>
+      <mat-list-item><a mat-button (click)="showComponent('profile')">Profile</a></mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div *ngIf="activeComponent === 'dashboard'">
+    <router-outlet></router-outlet>
+    <div id="content">
+      <div class="main-content">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+          <h2>Welcome Back, <span>{{ studentName }}</span>!</h2>
+          <p><strong>Department:</strong> {{ studentDepartment }}</p>
+          <p><strong>Year of Study:</strong> {{ studentYear }}</p>
+          <p><strong>Roll Number:</strong> {{ studentRollNumber }}</p>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-container">
+          <div class="card stat-card hover-effect">
+            <div class="card-content">
+              <h3>{{ queryCount }}</h3>
+              <p>Total Queries Posted</p>
+            </div>
+          </div>
+          <div class="card stat-card hover-effect">
+            <div class="card-content">
+              <h3>{{ processedQueries }}</h3>
+              <p>Processed Queries</p>
+            </div>
+          </div>
+          <div class="card stat-card hover-effect">
+            <div class="card-content">
+              <h3>{{ solvedQueries }}</h3>
+              <p>Solved Queries</p>
+            </div>
+          </div>
+          <div class="card stat-card hover-effect">
+            <div class="card-content">
+              <h3>{{ rejectedQueries }}</h3>
+              <p>Rejected Queries</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <app-component *ngIf="activeComponent === 'personal'"></app-component>
+    <app-component1 *ngIf="activeComponent === 'anonymous'"></app-component1>
+    <!-- <app-student-profile *ngIf="activeComponent === 'student-profile'"></app-student-profile> -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
